@@ -1,3 +1,19 @@
+# 2.0.0
+
+## 中文
+
+- 版本 **2.0.0**。
+- 修复 dsh 0.2.2+ 新对话报 `unknown prompt variable "{{cwd}}" in section "deployment:persona-suffix"`：该版本 dsh 只注册 `provider` / `model` 两个提示词变量，`cwd` 改为 runtime context（`working-directory:current`）提供。
+- persona 后缀不再输出 `{{cwd}}` 模板，改为按会话现算的字面工作目录并置 `interpolate:false`；`cordis.patch.yml` 的 `personaSuffix` 置空，避免插件未加载时也残留 `{{cwd}}`。
+- `escapeDshInterpolation` 白名单收敛为 `model` / `provider`，其余 `{{...}}`（含历史 `{{cwd}}`）一律转义，assemble 阶段不再抛错。
+
+## English
+
+- **2.0.0**.
+- Fix `unknown prompt variable "{{cwd}}" in section "deployment:persona-suffix"` on fresh conversations under dsh 0.2.2+: that line registers only `provider` / `model` as prompt variables; `cwd` moved to runtime context (`working-directory:current`).
+- The persona suffix no longer emits a `{{cwd}}` template; it renders the session's literal working directory with `interpolate:false`. `cordis.patch.yml` `personaSuffix` is cleared so no `{{cwd}}` survives even when the plugin is not loaded.
+- `escapeDshInterpolation` allow-list narrowed to `model` / `provider`; any other `{{...}}` (including legacy `{{cwd}}`) is escaped so assembly never throws.
+
 # 1.1.71
 
 ## 中文
